@@ -13,14 +13,20 @@ import io.circe.literal._
 import io.circe.syntax._
 import io.circe.parser._
 import io.circe.generic.auto._
-import sonac.github.io.germanwords.common.Article
-import sonac.github.io.germanwords.config.YandexConf
 import org.http4s.Uri
 import org.http4s.Credentials
+import sonac.github.io.germanwords.common.Article
+import sonac.github.io.germanwords.config.YandexConf
+import sonac.github.io.germanwords.db.WordsRepository
+import sonac.github.io.germanwords.model.Word
 
-class GetterWorder[F[_]](config: YandexConf, client: Client[IO]) {
+class GetterWorder[F[_]](
+    config: YandexConf,
+    client: Client[IO],
+    repo: WordsRepository[IO]
+) {
 
-  val engWords: List[String] = List("i", "will", "remove", "this", "later")
+  val engWords: IO[Seq[Word]] = repo.getWords
 
   case class TotalWord(english: String, german: String, article: String)
 
@@ -36,7 +42,7 @@ class GetterWorder[F[_]](config: YandexConf, client: Client[IO]) {
   }
 
   def getRandomWord: IO[String] = {
-    val resp = getWord(Random.shuffle(engWords).head)
+    val resp = engWords.flatMap(s => getWord(Random.shuffle(s).head.word))
     resp.map { r =>
       val json: Json = parse(r).getOrElse(Json.Null)
       val cursor: HCursor = json.hcursor

@@ -10,7 +10,7 @@ import org.http4s.server.blaze._
 import fs2.Stream
 import config.Config
 import org.http4s.client.blaze.BlazeClientBuilder
-import sonac.github.io.germanwords.db.Database
+import sonac.github.io.germanwords.db.{Database, WordsRepository}
 import sonac.github.io.germanwords.services.WordsService
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -25,12 +25,16 @@ object GermanwordsServer extends IOApp {
         .withResponseHeaderTimeout(Duration(100000, SECONDS))
         .stream
       config <- Stream.eval(Config.load())
-      //transactor <- Stream.eval(Database.transactor(config.database))
-      //_ <- Stream.eval(Database.initialize(transactor))
+      transactor <- Stream.eval(Database.transactor(config.database))
+      _ <- Stream.eval(Database.initialize(transactor))
       exitCode <- BlazeServerBuilder[IO]
         .bindHttp(8080, "0.0.0.0")
         .withHttpApp(
-          new WordsService(config.yandex, client).service
+          new WordsService(
+            config.yandex,
+            client,
+            new WordsRepository(transactor)
+          ).service
         )
         .serve
     } yield exitCode
