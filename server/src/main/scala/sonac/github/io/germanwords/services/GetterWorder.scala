@@ -1,6 +1,8 @@
 package sonac.github.io.germanwords.services
 
 import scala.util.Random
+import scala.util.{Try, Failure, Success}
+
 import cats.effect.IO
 import org.http4s.client._
 import org.http4s.client.dsl.io._
@@ -18,7 +20,7 @@ import org.http4s.Credentials
 import sonac.github.io.germanwords.common.Article
 import sonac.github.io.germanwords.config.YandexConf
 import sonac.github.io.germanwords.db.WordsRepository
-import sonac.github.io.germanwords.model.Word
+import sonac.github.io.germanwords.model._
 
 class GetterWorder[F[_]](
     config: YandexConf,
@@ -26,11 +28,9 @@ class GetterWorder[F[_]](
     repo: WordsRepository[IO]
 ) {
 
+  val articleMap = Map("f" -> "die", "m" -> "der", "n" -> "das")
+
   val engWords: IO[Seq[Word]] = repo.getWords
-
-  case class TotalWord(english: String, german: String, article: String)
-
-  implicit val decoder = jsonOf[IO, TotalWord]
 
   val key: String = config.key
 
@@ -38,24 +38,41 @@ class GetterWorder[F[_]](
     val url: String =
       "https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=" +
         key + "&lang=en-de&text=" + word
+    println(url)
     client.expect[String](Uri.unsafeFromString(url))
   }
 
-  def getRandomWord: IO[String] = {
+  def getRandomWord: IO[TotalWord] = {
     val resp = engWords.flatMap(s => getWord(Random.shuffle(s).head.word))
     resp.map { r =>
       val json: Json = parse(r).getOrElse(Json.Null)
       val cursor: HCursor = json.hcursor
-      cursor
+      lazy val word = cursor
         .downField("def")
         .downArray
         .first
-        .downField("tr")
-        .downArray
-        .first
-        .downField("text")
-        .as[String]
-        .getOrElse("none")
+      TotalWord(
+        word
+          .downField("text")
+          .as[String]
+          .getOrElse(""),
+        word
+          .downField("tr")
+          .downArray
+          .first
+          .downField("text")
+          .as[String]
+          .getOrElse(""),
+        articleMap(
+          word
+            .downField("tr")
+            .downArray
+            .first
+            .downField("gen")
+            .as[String]
+            .getOrElse("")
+        )
+      )
     }
   }
 

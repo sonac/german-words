@@ -5,7 +5,9 @@ val CirceVersion = "0.10.0"
 val Specs2Version = "4.2.0"
 val LogbackVersion = "1.2.3"
 
-lazy val root = (project in file("."))
+lazy val root = (project in file(".")).aggregate(server)
+
+lazy val server = (project in file("server"))
   .settings(
     organization := "sonac.github.io",
     name := "german-words",

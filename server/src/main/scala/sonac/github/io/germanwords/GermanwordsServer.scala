@@ -1,15 +1,12 @@
 package sonac.github.io.germanwords
 
-import cats.Applicative
 import cats.effect._
 import cats.implicits._
-import org.http4s.HttpRoutes
-import org.http4s.syntax._
-import org.http4s.dsl.io._
 import org.http4s.server.blaze._
 import fs2.Stream
 import config.Config
 import org.http4s.client.blaze.BlazeClientBuilder
+
 import sonac.github.io.germanwords.db.{Database, WordsRepository}
 import sonac.github.io.germanwords.services.WordsService
 
