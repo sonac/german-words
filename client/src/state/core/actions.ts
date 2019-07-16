@@ -1,6 +1,6 @@
 import * as utils from "../utils";
 import { Word } from "./types";
-import { WordData, ErrorData } from "state/types";
+import { WordData, ErrorData, GuessData } from "state/types";
 
 export const getWord = utils.createActionCreator("GET_WORD");
 
@@ -17,3 +17,12 @@ export const getWordError = utils.createActionCreator(
     error
   })
 );
+
+export const guess = utils.createActionCreator(
+  "GUESS",
+  (guessed: boolean): GuessData => ({
+    guessed
+  })
+);
+
+export const nextWord = utils.createActionCreator("NEXT_WORD");

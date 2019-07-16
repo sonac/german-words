@@ -1,0 +1,22 @@
+.result {
+  margin-top: 5em;
+}
+
+.nextWord {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border: 0.05em solid #4f4f4f;
+  border-radius: 0.5em;
+  margin-top: 1em;
+  margin-left: 25%;
+  width: 31%;
+}
+
+.nextWord:hover {
+  border: 1px solid #faa600;
+  background-color: #f9f9f9;
+  color: #faa600;
+  cursor: pointer;
+}

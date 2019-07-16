@@ -49,10 +49,19 @@ class WordsService(
           )
           .map(_.putHeaders())
           .getOrElseF(Ok(System.getProperty("user.dir")))
-      case request @ GET -> Root / "js" / "bundle.js" =>
+      case request @ GET -> Root / "js" / jsFileName =>
         StaticFile
           .fromFile[IO](
-            new File("public/js/bundle.js"),
+            new File("public/js/" + jsFileName),
+            blockingEc,
+            Some(request)
+          )
+          .map(_.putHeaders())
+          .getOrElseF(Ok(System.getProperty("user.dir")))
+      case request @ GET -> Root / "fonts" / fontFileName =>
+        StaticFile
+          .fromFile[IO](
+            new File("public/fonts/" + fontFileName),
             blockingEc,
             Some(request)
           )

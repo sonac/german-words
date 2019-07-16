@@ -1,0 +1,35 @@
+.body {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 100px;
+  grid-gap: 1em;
+  justify-content: space-around;
+  margin-top: 40%;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+.word {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  margin: auto;
+}
+
+.answer {
+  margin: auto;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border: 0.05em solid #4f4f4f;
+  border-radius: 0.5em;
+}
+
+.answer:hover {
+  border: 1px solid #faa600;
+  background-color: #f9f9f9;
+  color: #faa600;
+  cursor: pointer;
+}

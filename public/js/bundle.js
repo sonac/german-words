@@ -780,7 +780,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".app_4Dync {\n  min-height: 100%;\n}\n", ""]);
+exports.push([module.i, "@font-face {\n  font-family: Sanchez;\n  src: url(/fonts/Sanchezregular.otf);\n}\n\n.app_4Dync {\n  min-height: 100%;\n}\n\nhtml {\n  background-color: #afdad7;\n  font-family: \"Sanchez\";\n  font-size: 7em;\n}\n", ""]);
 
 // exports
 exports.locals = {
@@ -801,13 +801,56 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".body_U4Faf {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  grid-auto-rows: 100px;\n  grid-gap: 15px;\n  justify-content: space-around;\n  margin-top: 40%;\n  margin-left: 20%;\n  margin-right: 20%;\n}\n\n.word_3laT- {\n  grid-column-start: 1;\n  grid-column-end: 4;\n  grid-row-start: 1;\n  grid-row-end: 2;\n  margin: auto;\n  margin-bottom: 5em;\n}\n\n.answer_2yovL {\n  margin: auto;\n  padding-left: 9em;\n  padding-right: 9em;\n  padding-top: 2em;\n  padding-bottom: 2em;\n  border: 0.1em solid red;\n  border-radius: 25% 10%;\n}\n\n.answer_2yovL:hover {\n  border: 1px solid #faa600;\n  background-color: #f9f9f9;\n  color: #faa600;\n  cursor: pointer;\n}\n", ""]);
+exports.push([module.i, ".body_U4Faf {\n}\n", ""]);
 
 // exports
 exports.locals = {
-	"body": "body_U4Faf",
-	"word": "word_3laT-",
-	"answer": "answer_2yovL"
+	"body": "body_U4Faf"
+};
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./src/components/ResultPage/styles.css":
+/*!**********************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./src/components/ResultPage/styles.css ***!
+  \**********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")();
+// imports
+
+
+// module
+exports.push([module.i, ".result_2kyvv {\n  margin-top: 5em;\n}\n\n.nextWord_1i69s {\n  padding-left: 1em;\n  padding-right: 1em;\n  padding-top: 0.5em;\n  padding-bottom: 0.5em;\n  border: 0.05em solid #4f4f4f;\n  border-radius: 0.5em;\n  margin-top: 1em;\n  margin-left: 25%;\n  width: 31%;\n}\n\n.nextWord_1i69s:hover {\n  border: 1px solid #faa600;\n  background-color: #f9f9f9;\n  color: #faa600;\n  cursor: pointer;\n}\n", ""]);
+
+// exports
+exports.locals = {
+	"result": "result_2kyvv",
+	"nextWord": "nextWord_1i69s"
+};
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./src/components/WordPage/styles.css":
+/*!********************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./src/components/WordPage/styles.css ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")();
+// imports
+
+
+// module
+exports.push([module.i, ".body_fPlCx {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  grid-auto-rows: 100px;\n  grid-gap: 1em;\n  justify-content: space-around;\n  margin-top: 40%;\n  margin-left: 20%;\n  margin-right: 20%;\n}\n\n.word_2Idnw {\n  grid-column-start: 1;\n  grid-column-end: 4;\n  grid-row-start: 1;\n  grid-row-end: 2;\n  margin: auto;\n}\n\n.answer_35j0f {\n  margin: auto;\n  padding-left: 1em;\n  padding-right: 1em;\n  padding-top: 0.5em;\n  padding-bottom: 0.5em;\n  border: 0.05em solid #4f4f4f;\n  border-radius: 0.5em;\n}\n\n.answer_35j0f:hover {\n  border: 1px solid #faa600;\n  background-color: #f9f9f9;\n  color: #faa600;\n  cursor: pointer;\n}\n", ""]);
+
+// exports
+exports.locals = {
+	"body": "body_fPlCx",
+	"word": "word_2Idnw",
+	"answer": "answer_35j0f"
 };
 
 /***/ }),
@@ -32236,7 +32279,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var react_1 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var react_redux_1 = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-var actions_1 = __webpack_require__(/*! state/core/actions */ "./src/state/core/actions.ts");
+var WordPage_1 = __webpack_require__(/*! ../WordPage */ "./src/components/WordPage/index.tsx");
+var ResultPage_1 = __webpack_require__(/*! ../ResultPage */ "./src/components/ResultPage/index.tsx");
 var styles = __webpack_require__(/*! ./styles.css */ "./src/components/Body/styles.css");
 
 var Body = function (_react_1$Component) {
@@ -32245,21 +32289,186 @@ var Body = function (_react_1$Component) {
     function Body() {
         _classCallCheck(this, Body);
 
-        var _this = _possibleConstructorReturn(this, (Body.__proto__ || Object.getPrototypeOf(Body)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (Body.__proto__ || Object.getPrototypeOf(Body)).apply(this, arguments));
+    }
 
-        _this.onClick = function (article) {
-            if (article === _this.props.data.word.article) {
-                alert("Correct! The word is " + _this.props.data.word.article + " " + _this.props.data.word.german + " and it means " + _this.props.data.word.english);
-                _this.props.actions.getWord();
-            } else {
-                alert("WRONG! The word is " + _this.props.data.word.article + " " + _this.props.data.word.german + " and it mean " + _this.props.data.word.english);
-                _this.props.actions.getWord();
-            }
+    _createClass(Body, [{
+        key: "render",
+        value: function render() {
+            return React.createElement("div", { className: styles.body }, this.props.data.guessed === null ? React.createElement(WordPage_1.default, null) : React.createElement(ResultPage_1.default, null));
+        }
+    }]);
+
+    return Body;
+}(react_1.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        guessed: state.core.guessed
+    };
+};
+var mapDispatchToProps = {};
+var mergeProps = function mergeProps(data, actions) {
+    return {
+        data: data,
+        actions: actions
+    };
+};
+exports.default = react_redux_1.connect(mapStateToProps, mapDispatchToProps, mergeProps)(Body);
+
+/***/ }),
+
+/***/ "./src/components/Body/styles.css":
+/*!****************************************!*\
+  !*** ./src/components/Body/styles.css ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!./styles.css */ "./node_modules/css-loader/index.js?!./src/components/Body/styles.css");
+if(typeof content === 'string') content = [[module.i, content, '']];
+// add the styles to the DOM
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/addStyles.js */ "./node_modules/style-loader/addStyles.js")(content, {});
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {}
+
+/***/ }),
+
+/***/ "./src/components/ResultPage/index.tsx":
+/*!*********************************************!*\
+  !*** ./src/components/ResultPage/index.tsx ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var react_1 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var react_redux_1 = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+var actions_1 = __webpack_require__(/*! state/core/actions */ "./src/state/core/actions.ts");
+var styles = __webpack_require__(/*! ./styles.css */ "./src/components/ResultPage/styles.css");
+
+var ResultPage = function (_react_1$Component) {
+    _inherits(ResultPage, _react_1$Component);
+
+    function ResultPage() {
+        _classCallCheck(this, ResultPage);
+
+        var _this = _possibleConstructorReturn(this, (ResultPage.__proto__ || Object.getPrototypeOf(ResultPage)).apply(this, arguments));
+
+        _this.onClick = function () {
+            _this.props.actions.getWord();
         };
         return _this;
     }
 
-    _createClass(Body, [{
+    _createClass(ResultPage, [{
+        key: "render",
+        value: function render() {
+            if (this.props.data.word === null) {
+                return React.createElement("div", { className: styles.body }, "...loading");
+            }
+            return React.createElement("div", { className: styles.result }, this.props.data.guessed ? "Correct! The word is " + this.props.data.word.article + "\n            " + this.props.data.word.german + " and it means\n            " + this.props.data.word.english : "WRONG! The word is " + this.props.data.word.article + " \n            " + this.props.data.word.german + " \n            and it mean " + this.props.data.word.english, React.createElement("div", { className: styles.nextWord, onClick: this.onClick }, "Next Word"));
+        }
+    }]);
+
+    return ResultPage;
+}(react_1.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        word: state.core.word,
+        guessed: state.core.guessed
+    };
+};
+var mapDispatchToProps = {
+    getWord: actions_1.getWord
+};
+var mergeProps = function mergeProps(data, actions) {
+    return {
+        data: data,
+        actions: actions
+    };
+};
+exports.default = react_redux_1.connect(mapStateToProps, mapDispatchToProps, mergeProps)(ResultPage);
+
+/***/ }),
+
+/***/ "./src/components/ResultPage/styles.css":
+/*!**********************************************!*\
+  !*** ./src/components/ResultPage/styles.css ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!./styles.css */ "./node_modules/css-loader/index.js?!./src/components/ResultPage/styles.css");
+if(typeof content === 'string') content = [[module.i, content, '']];
+// add the styles to the DOM
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/addStyles.js */ "./node_modules/style-loader/addStyles.js")(content, {});
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {}
+
+/***/ }),
+
+/***/ "./src/components/WordPage/index.tsx":
+/*!*******************************************!*\
+  !*** ./src/components/WordPage/index.tsx ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var react_1 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var react_redux_1 = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+var actions_1 = __webpack_require__(/*! state/core/actions */ "./src/state/core/actions.ts");
+var styles = __webpack_require__(/*! ./styles.css */ "./src/components/WordPage/styles.css");
+
+var WordPage = function (_react_1$Component) {
+    _inherits(WordPage, _react_1$Component);
+
+    function WordPage() {
+        _classCallCheck(this, WordPage);
+
+        var _this = _possibleConstructorReturn(this, (WordPage.__proto__ || Object.getPrototypeOf(WordPage)).apply(this, arguments));
+
+        _this.onClick = function (article) {
+            _this.props.actions.guess(article === _this.props.data.word.article);
+        };
+        return _this;
+    }
+
+    _createClass(WordPage, [{
         key: "componentDidMount",
         value: function componentDidMount() {
             this.props.actions.getWord();
@@ -32282,7 +32491,7 @@ var Body = function (_react_1$Component) {
         }
     }]);
 
-    return Body;
+    return WordPage;
 }(react_1.Component);
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -32292,6 +32501,7 @@ var mapStateToProps = function mapStateToProps(state) {
     };
 };
 var mapDispatchToProps = {
+    guess: actions_1.guess,
     getWord: actions_1.getWord
 };
 var mergeProps = function mergeProps(data, actions) {
@@ -32300,21 +32510,21 @@ var mergeProps = function mergeProps(data, actions) {
         actions: actions
     };
 };
-exports.default = react_redux_1.connect(mapStateToProps, mapDispatchToProps, mergeProps)(Body);
+exports.default = react_redux_1.connect(mapStateToProps, mapDispatchToProps, mergeProps)(WordPage);
 
 /***/ }),
 
-/***/ "./src/components/Body/styles.css":
-/*!****************************************!*\
-  !*** ./src/components/Body/styles.css ***!
-  \****************************************/
+/***/ "./src/components/WordPage/styles.css":
+/*!********************************************!*\
+  !*** ./src/components/WordPage/styles.css ***!
+  \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!./styles.css */ "./node_modules/css-loader/index.js?!./src/components/Body/styles.css");
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!./styles.css */ "./node_modules/css-loader/index.js?!./src/components/WordPage/styles.css");
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(/*! ../../../node_modules/style-loader/addStyles.js */ "./node_modules/style-loader/addStyles.js")(content, {});
@@ -32367,6 +32577,12 @@ exports.getWordError = utils.createActionCreator("GET_WORD_ERROR", function (err
         error: error
     };
 });
+exports.guess = utils.createActionCreator("GUESS", function (guessed) {
+    return {
+        guessed: guessed
+    };
+});
+exports.nextWord = utils.createActionCreator("NEXT_WORD");
 
 /***/ }),
 
@@ -32424,14 +32640,17 @@ var actions_1 = __webpack_require__(/*! ./actions */ "./src/state/core/actions.t
 var initState = {
     isLoading: true,
     error: null,
-    word: null
+    word: null,
+    guessed: null
 };
 exports.default = utils_1.createReducerFromDescriptor((_utils_1$createReduce = {}, _defineProperty(_utils_1$createReduce, actions_1.getWord.type, function (state, _) {
-    return Object.assign({}, state, { isLoading: true });
+    return Object.assign({}, state, { isLoading: true, guessed: null });
 }), _defineProperty(_utils_1$createReduce, actions_1.getWordSuccess.type, function (state, action) {
     return Object.assign({}, state, { isLoading: false, word: action.wordData });
 }), _defineProperty(_utils_1$createReduce, actions_1.getWordError.type, function (state, action) {
     return Object.assign({}, state, { isLoading: false, error: action.error });
+}), _defineProperty(_utils_1$createReduce, actions_1.guess.type, function (state, action) {
+    return Object.assign({}, state, { guessed: action.guessed });
 }), _utils_1$createReduce), initState);
 
 /***/ }),

@@ -49,3 +49,11 @@ export interface WordData {
 export type WordAction = WordData & Action;
 
 export type WordActionCreator = ActionCreator1<Word, WordData>;
+
+export interface GuessData {
+  guessed: boolean;
+}
+
+export type GuessAction = GuessData & Action;
+
+export type GuessActionCreator = ActionCreator1<boolean, GuessData>;

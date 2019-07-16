@@ -1,3 +1,14 @@
+@font-face {
+  font-family: Sanchez;
+  src: url(/fonts/Sanchezregular.otf);
+}
+
 .app {
   min-height: 100%;
+}
+
+html {
+  background-color: #afdad7;
+  font-family: "Sanchez";
+  font-size: 7em;
 }
