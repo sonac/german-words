@@ -23,8 +23,7 @@ import org.http4s.StaticFile
 
 class WordsService(
     config: YandexConf,
-    client: Client[IO],
-    repo: WordsRepository[IO]
+    client: Client[IO]
 ) extends Http4sDsl[IO] {
   import org.http4s.implicits._
 
@@ -43,7 +42,7 @@ class WordsService(
       case request @ GET -> Root =>
         StaticFile
           .fromFile[IO](
-            new File("public/index.html"),
+            new File("../public/index.html"),
             blockingEc,
             Some(request)
           )
@@ -52,7 +51,7 @@ class WordsService(
       case request @ GET -> Root / "js" / jsFileName =>
         StaticFile
           .fromFile[IO](
-            new File("public/js/" + jsFileName),
+            new File("../public/js/" + jsFileName),
             blockingEc,
             Some(request)
           )
@@ -61,7 +60,7 @@ class WordsService(
       case request @ GET -> Root / "fonts" / fontFileName =>
         StaticFile
           .fromFile[IO](
-            new File("public/fonts/" + fontFileName),
+            new File("../public/fonts/" + fontFileName),
             blockingEc,
             Some(request)
           )
@@ -71,7 +70,7 @@ class WordsService(
         Ok("oh hi mark")
       case GET -> Root / "word" =>
         Ok(
-          new GetterWorder(config, client, repo).getRandomWord
+          new GetterWorder(config, client).getRandomWord
         )
     }
     .orNotFound

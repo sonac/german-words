@@ -32471,7 +32471,9 @@ var WordPage = function (_react_1$Component) {
     _createClass(WordPage, [{
         key: "componentDidMount",
         value: function componentDidMount() {
-            this.props.actions.getWord();
+            if (this.props.data.word === null) {
+                this.props.actions.getWord();
+            }
         }
     }, {
         key: "render",
@@ -32479,7 +32481,7 @@ var WordPage = function (_react_1$Component) {
             var _this2 = this;
 
             if (this.props.data.isLoading) {
-                return React.createElement("div", { className: styles.body }, "...loading");
+                return React.createElement("div", { className: styles.body });
             }
             return React.createElement("div", { className: styles.body }, React.createElement("div", { className: styles.word }, this.props.data.word.german), React.createElement("div", { className: styles.answer, onClick: function onClick(_) {
                     return _this2.onClick("der");

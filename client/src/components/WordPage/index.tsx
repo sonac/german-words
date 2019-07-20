@@ -26,7 +26,9 @@ type State = {};
 
 class WordPage extends Component<Props, State> {
   componentDidMount() {
-    this.props.actions.getWord();
+    if (this.props.data.word === null) {
+      this.props.actions.getWord();
+    }
   }
 
   onClick = (article: string) => {
@@ -35,7 +37,7 @@ class WordPage extends Component<Props, State> {
 
   render() {
     if (this.props.data.isLoading) {
-      return <div className={styles.body}>...loading</div>;
+      return <div className={styles.body} />;
     }
     return (
       <div className={styles.body}>
