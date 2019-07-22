@@ -15,10 +15,10 @@ import org.http4s.dsl.io._
 import org.http4s.server.staticcontent._
 import io.circe.generic.auto._
 import io.circe.syntax._
-import doobie.util.transactor.Transactor
 import sonac.github.io.germanwords.config.YandexConf
 import sonac.github.io.germanwords.db.WordsRepository
 import sonac.github.io.germanwords.model._
+import sonac.github.io.germanwords.common.ExternalServiceFailure
 import org.http4s.StaticFile
 
 class WordsService(
@@ -67,11 +67,13 @@ class WordsService(
           .map(_.putHeaders())
           .getOrElseF(Ok(System.getProperty("user.dir")))
       case GET -> Root / "healthcheck" =>
+        println("hi")
         Ok("oh hi mark")
       case GET -> Root / "word" =>
-        Ok(
-          new GetterWorder(config, client).getRandomWord
-        )
+        new GetterWorder(config, client).getRandomWord().flatMap {
+          case Right(word) => Ok(word)
+          case Left(err)   => InternalServerError(err.message)
+        }
     }
     .orNotFound
 

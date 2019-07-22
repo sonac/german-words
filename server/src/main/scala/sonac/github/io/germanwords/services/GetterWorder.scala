@@ -10,6 +10,7 @@ import org.http4s.headers._
 import org.http4s.MediaType
 import org.http4s.circe._
 import org.http4s.Method._
+import org.http4s.Request
 import io.circe._
 import io.circe.literal._
 import io.circe.syntax._
@@ -21,6 +22,7 @@ import sonac.github.io.germanwords.common.Article
 import sonac.github.io.germanwords.config.YandexConf
 import sonac.github.io.germanwords.db.WordsRepository
 import sonac.github.io.germanwords.model._
+import sonac.github.io.germanwords.common.ExternalServiceFailure
 
 class GetterWorder[F[_]](
     config: YandexConf,
@@ -40,10 +42,19 @@ class GetterWorder[F[_]](
     val url: String =
       "https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=" +
         key + "&lang=en-de&text=" + word
-    client.expect[String](Uri.unsafeFromString(url))
+    client.expect[String](
+      Request[IO](
+        method = GET,
+        uri = Uri.fromString(url).getOrElse(Uri.uri("localhost"))
+      )
+    )
   }
 
-  def getRandomWord: IO[TotalWord] = {
+  def getRandomWord(
+      retry: Int = 0
+  ): IO[Either[ExternalServiceFailure, TotalWord]] = {
+    if (retry > 10)
+      IO(Left(ExternalServiceFailure("Yandex dictionary is not available")))
     val resp = engWords.flatMap { s =>
       getWord(Random.shuffle(s).head.word)
     }
@@ -53,32 +64,35 @@ class GetterWorder[F[_]](
       lazy val word = getNounFromArray(cursor)
       word match {
         case Some(w) => {
-          TotalWord(
-            w.downField("text")
-              .as[String]
-              .getOrElse(""),
-            w.downField("tr")
-              .downArray
-              .first
-              .downField("text")
-              .as[String]
-              .getOrElse(""),
-            articleMap(
+          Right(
+            TotalWord(
+              w.downField("text")
+                .as[String]
+                .getOrElse(""),
               w.downField("tr")
                 .downArray
                 .first
-                .downField("gen")
+                .downField("text")
                 .as[String]
-                .getOrElse("")
+                .getOrElse(""),
+              articleMap(
+                w.downField("tr")
+                  .downArray
+                  .first
+                  .downField("gen")
+                  .as[String]
+                  .getOrElse("")
+              )
             )
           )
         }
-        case None => getRandomWord.unsafeRunSync()
+        case None => getRandomWord(retry + 1).unsafeRunSync()
       }
     }
   }
 
   def getNounFromArray(arrayCursor: ACursor): Option[ACursor] = {
+    //println(arrayCursor.getOrElse())
     if (arrayCursor.first.downField("pos").as[String].contains("noun")) {
       Some(arrayCursor.first)
     } else {

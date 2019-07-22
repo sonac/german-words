@@ -9,6 +9,9 @@ object Dependencies {
   lazy val PureConfigVersion = "0.10.2"
   lazy val DoobieVersion = "0.5.4"
   lazy val FlywayVersion = "5.2.4"
+  lazy val ScalaTestVersion = "3.0.5"
+  lazy val ScalaMockVersion = "4.1.0"
+  lazy val mockitoV = "1.5.0"
 
   lazy val blazeServer
       : ModuleID = "org.http4s" %% "http4s-blaze-server" % Http4sVersion
@@ -26,13 +29,13 @@ object Dependencies {
       : ModuleID = "ch.qos.logback" % "logback-classic" % LogbackVersion
   lazy val pureConfig
       : ModuleID = "com.github.pureconfig" %% "pureconfig" % PureConfigVersion
-  lazy val doobieCore
-      : ModuleID = "org.tpolecat" %% "doobie-core" % DoobieVersion
-  lazy val doobieHikari
-      : ModuleID = "org.tpolecat" %% "doobie-hikari" % DoobieVersion
-  lazy val doobiePostgres
-      : ModuleID = "org.tpolecat" %% "doobie-postgres" % DoobieVersion
-  lazy val flywayDB: ModuleID = "org.flywaydb" % "flyway-core" % FlywayVersion
+  lazy val scalaTest
+      : ModuleID = "org.scalatest" %% "scalatest" % ScalaTestVersion % "test"
+  lazy val scalaMock
+      : ModuleID = "org.scalamock" %% "scalamock" % ScalaMockVersion % "test"
+  lazy val http4sTesting
+      : ModuleID = "org.http4s" %% "http4s-testing" % Http4sVersion % "test"
+  lazy val mockito: ModuleID = "org.mockito" %% "mockito-scala" % mockitoV
 
   lazy val dependencies: Seq[ModuleID] = Seq(
     blazeServer,
@@ -45,10 +48,10 @@ object Dependencies {
     specsCore,
     logback,
     pureConfig,
-    doobieCore,
-    doobieHikari,
-    doobiePostgres,
-    flywayDB
+    scalaTest,
+    scalaMock,
+    http4sTesting,
+    mockito
   )
 
 }

@@ -21,5 +21,6 @@ scalacOptions ++= Seq(
   "-language:higherKinds",
   "-language:postfixOps",
   "-feature",
-  "-Ypartial-unification"
+  "-Ypartial-unification",
+  "-Ylog-classpath`"
 )
