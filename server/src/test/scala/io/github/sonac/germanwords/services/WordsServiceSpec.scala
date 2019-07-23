@@ -91,7 +91,6 @@ class WordsServiceSpec extends WordSpec with Http4sDsl[IO] {
         )
         .pure[IO]
     case r => {
-      println(r)
       Response[IO](Ok).withEntity(r.body).pure[IO]
     }
   }
@@ -108,11 +107,11 @@ class WordsServiceSpec extends WordSpec with Http4sDsl[IO] {
     }
   }
 
-  val service = new WordsService(config, client)
+  val wordService = new WordsService(config, client)
 
   "service" should {
-    "return proper" in {
-      val response = service.service.run(
+    "return proper response for word endpoint" in {
+      val response = wordService.service.run(
         Request(method = Method.GET, uri = Uri.uri("/word"))
       )
       val expectedJson = Json.obj(
@@ -121,6 +120,19 @@ class WordsServiceSpec extends WordSpec with Http4sDsl[IO] {
         ("article", Json.fromString("das"))
       )
       assert(check[Json](response, Status.Ok, Some(expectedJson)))
+    }
+    "return proper response fpr healthcheck endpoint" in {
+      val response = wordService.service.run(
+        Request(method = Method.GET, uri = Uri.uri("/healthcheck"))
+      )
+      val expectedBody = "oh hi mark"
+      assert(check[String](response, Status.Ok, Some(expectedBody)))
+    }
+    "fails on wrong method to healthcheck endpoint" in {
+      val response = wordService.service.run(
+        Request(method = Method.POST, uri = Uri.uri("/healthcheck"))
+      )
+      assert(check(response, Status.NotFound, Some("Not found")))
     }
   }
 }

@@ -67,7 +67,6 @@ class WordsService(
           .map(_.putHeaders())
           .getOrElseF(Ok(System.getProperty("user.dir")))
       case GET -> Root / "healthcheck" =>
-        println("hi")
         Ok("oh hi mark")
       case GET -> Root / "word" =>
         new GetterWorder(config, client).getRandomWord().flatMap {
