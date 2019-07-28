@@ -39,7 +39,7 @@ class ResultPage extends Component<Props, State> {
             ${this.props.data.word.english}`
           : `WRONG! The word is ${this.props.data.word.article} 
             ${this.props.data.word.german} 
-            and it mean ${this.props.data.word.english}`}
+            and it means ${this.props.data.word.english}`}
         <div className={styles.nextWord} onClick={this.onClick}>
           Next Word
         </div>

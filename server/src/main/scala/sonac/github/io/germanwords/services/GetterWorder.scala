@@ -31,11 +31,6 @@ class GetterWorder[F[_]](
 
   val articleMap = Map("f" -> "die", "m" -> "der", "n" -> "das")
 
-  val engWords: IO[Seq[Word]] = WordsRepository.getWords.map {
-    case Some(s) => s
-    case None    => Seq()
-  }
-
   val key: String = config.key
 
   def getWord(word: String): IO[String] = {
@@ -55,7 +50,7 @@ class GetterWorder[F[_]](
   ): IO[Either[ExternalServiceFailure, TotalWord]] = {
     if (retry > 10)
       IO(Left(ExternalServiceFailure("Yandex dictionary is not available")))
-    val resp = engWords.flatMap { s =>
+    val resp = WordsRepository.getWords.flatMap { s =>
       getWord(Random.shuffle(s).head.word)
     }
     resp.map { r =>

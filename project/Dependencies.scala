@@ -21,6 +21,7 @@ object Dependencies {
       : ModuleID = "org.http4s" %% "http4s-circe" % Http4sVersion
   lazy val http4sDsl: ModuleID = "org.http4s" %% "http4s-dsl" % Http4sVersion
   lazy val circeGeneric: ModuleID = "io.circe" %% "circe-generic" % CirceVersion
+  lazy val circeGenericExtras = "io.circe" %% "circe-generic-extras" % CirceVersion
   lazy val circeParser: ModuleID = "io.circe" %% "circe-parser" % CirceVersion
   lazy val circeLiteral: ModuleID = "io.circe" %% "circe-literal" % CirceVersion
   lazy val specsCore
@@ -43,6 +44,7 @@ object Dependencies {
     http4sCirce,
     http4sDsl,
     circeGeneric,
+    circeGenericExtras,
     circeParser,
     circeLiteral,
     specsCore,

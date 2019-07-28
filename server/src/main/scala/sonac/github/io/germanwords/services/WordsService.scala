@@ -20,6 +20,8 @@ import sonac.github.io.germanwords.db.WordsRepository
 import sonac.github.io.germanwords.model._
 import sonac.github.io.germanwords.common.ExternalServiceFailure
 import org.http4s.StaticFile
+import scala.util.Success
+import scala.util.Failure
 
 class WordsService(
     config: YandexConf,
@@ -31,6 +33,12 @@ class WordsService(
     jsonOf[IO, TotalWord]
   implicit val totalWordEncoder: EntityEncoder[IO, TotalWord] =
     jsonEncoderOf[IO, TotalWord]
+  implicit val userEncoder: EntityEncoder[IO, User] =
+    jsonEncoderOf[IO, User]
+  implicit val userDecoder: EntityDecoder[IO, User] =
+    jsonOf[IO, User]
+  implicit val userSeqEncoder: EntityEncoder[IO, Seq[User]] =
+    jsonEncoderOf[IO, Seq[User]]
 
   implicit val cs: ContextShift[IO] = IO.contextShift(ExecutionContext.global)
 
@@ -73,6 +81,21 @@ class WordsService(
           case Right(word) => Ok(word)
           case Left(err)   => InternalServerError(err.message)
         }
+      case GET -> Root / "records" => Ok(WordsRepository.getTopTenUsers)
+      case GET -> Root / "user" / username =>
+        WordsRepository.getUserByName(username).flatMap {
+          case Some(u) => Ok(u)
+          case None    => IO(Response[IO](status = NotFound))
+        }
+      case req @ POST -> Root / "user" =>
+        for {
+          user <- req.as[User]
+          ioResp <- WordsRepository.addUserRecord(user).map {
+            case Success(u)   => Ok(u)
+            case Failure(err) => InternalServerError(err.getMessage())
+          }
+          resp <- ioResp
+        } yield (resp)
     }
     .orNotFound
 
